@@ -1,0 +1,17 @@
+2026/02/11-19:15:05.234 4578 Reusing MANIFEST C:\Users\Billarenlinea1\Desktop\chat bot 2\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/02/11-19:15:05.235 4578 Recovering log #534
+2026/02/11-19:15:05.272 4578 Reusing old log C:\Users\Billarenlinea1\Desktop\chat bot 2\.wwebjs_auth\session\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000534.log 
+2026/02/11-19:15:09.124 4114 Level-0 table #546: started
+2026/02/11-19:15:09.156 4114 Level-0 table #546: 1217702 bytes OK
+2026/02/11-19:15:09.160 4114 Delete type=0 #534
+2026/02/11-19:15:09.324 4114 Compacting 1@1 + 8@2 files
+2026/02/11-19:15:09.392 4114 Generated table #547@1: 86729 keys, 2236943 bytes
+2026/02/11-19:15:09.483 4114 Generated table #548@1: 96975 keys, 2250205 bytes
+2026/02/11-19:15:09.540 4114 Generated table #549@1: 101479 keys, 2253151 bytes
+2026/02/11-19:15:09.585 4114 Generated table #550@1: 37699 keys, 2300459 bytes
+2026/02/11-19:15:09.613 4114 Generated table #551@1: 8154 keys, 2165941 bytes
+2026/02/11-19:15:09.662 4114 Generated table #552@1: 30733 keys, 2201595 bytes
+2026/02/11-19:15:09.726 4114 Generated table #553@1: 73762 keys, 2220012 bytes
+2026/02/11-19:15:09.733 4114 Generated table #554@1: 1787 keys, 377467 bytes
+2026/02/11-19:15:09.734 4114 Compacted 1@1 + 8@2 files => 16005773 bytes
+2026/02/11-19:15:09.734 4114 compacted to: files[ 0 0 8 0 0 0 0 ]
