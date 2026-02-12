@@ -1,0 +1,27 @@
+# Node
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# dotenv
+.env
+
+# VSCode
+.vscode/
+
+# Auth y sesiones WhatsApp
+.wwebjs_auth/
+.wwebjs_cache/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Otros
+*.swp
+*.swo

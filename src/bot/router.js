@@ -11,10 +11,17 @@ import { transmissionsFlow } from "./flows/transmissions/transmissions.flow.js";
 import { billarInfoFlow } from "./flows/billarInfo.flow.js";
 import { findOrCreateUser } from "../services/user.service.js";
 import { handleTransmissionSteps } from "./flows/transmissions/transmission.handlers.js";
+import { stateTypingDelay } from "../utils/stateTipingDelay.js";
 
 // Activar modo BILLAR_INFO manualmente desde menú
 
 export const handleMessage = async (client, msg) => {
+
+  // ⏳ Simular que el bot está "escribiendo" antes de responder
+   await stateTypingDelay(msg);
+   
+  
+  
   
     const user = msg.from;
     const text = msg.body?.toLowerCase().trim();

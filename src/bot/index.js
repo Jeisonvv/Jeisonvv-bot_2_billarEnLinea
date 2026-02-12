@@ -3,6 +3,7 @@ const { Client, LocalAuth } = whatsapp;
 import { handleMessage } from "./router.js";
 import qrcode from "qrcode-terminal";
 
+
 export const initBot = async () => {
   const client = new Client({
     authStrategy: new LocalAuth(),
@@ -28,7 +29,6 @@ export const initBot = async () => {
     if (msg.from === "status@broadcast") return;
 
     // ...existing code...
-    
     await handleMessage(client, msg);
   });
 
