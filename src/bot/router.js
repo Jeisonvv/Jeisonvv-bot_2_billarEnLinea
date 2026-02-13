@@ -11,24 +11,20 @@ import { transmissionsFlow } from "./flows/transmissions/transmissions.flow.js";
 import { billarInfoFlow } from "./flows/billarInfo.flow.js";
 import { findOrCreateUser } from "../services/user.service.js";
 import { handleTransmissionSteps } from "./flows/transmissions/transmission.handlers.js";
-import { stateTypingDelay } from "../utils/stateTipingDelay.js";
+
 
 // Activar modo BILLAR_INFO manualmente desde menú
 
 export const handleMessage = async (client, msg) => {
-
   // ⏳ Simular que el bot está "escribiendo" antes de responder
-   await stateTypingDelay(msg);
-   
-  
-  
-  
-    const user = msg.from;
-    const text = msg.body?.toLowerCase().trim();
-    if (!text) return;
-    await findOrCreateUser(user);
-    const currentState = await getState(user);
 
+  const user = msg.from;
+  const text = msg.body?.toLowerCase().trim();
+  const userData = await findOrCreateUser(user);
+  if (!text) return;
+  await findOrCreateUser(user);
+  const currentState = await getState(user);
+  
 
   // 🔵 1️⃣ Si ya está en un flujo activo, continuar ese flujo
   if (currentState && currentState !== "IDLE") {
@@ -66,7 +62,7 @@ export const handleMessage = async (client, msg) => {
     case "TOURNAMENT_REGISTER":
       return tournamentRegisterFlow(client, msg);
     case "TRANSMISSIONS":
-      return transmissionsFlow(client, msg);
+      return transmissionsFlow(client, msg, userData);
 
     default:
       return client.sendMessage(
@@ -83,10 +79,10 @@ export const handleMessage = async (client, msg) => {
 
 // Función para continuar un flujo activo según el estado
 const continueFlow = async (client, msg, state) => {
-    // ...existing code...
+  // ...existing code...
   const user = msg.from;
   const text = msg.body?.toLowerCase().trim();
-
+  const userData = await findOrCreateUser(user);
 
   if (state === "HUMAN_TAKEOVER") {
     return; // El bot no responde nada
@@ -94,7 +90,7 @@ const continueFlow = async (client, msg, state) => {
 
   // 🏆 SUBFLOW TRANSMISSION
   if (typeof state === "string" && state.startsWith("TRANSMISSION_")) {
-    return handleTransmissionSteps(client, msg, state);
+    return handleTransmissionSteps(client, msg, state, userData);
   }
 
   switch (state) {

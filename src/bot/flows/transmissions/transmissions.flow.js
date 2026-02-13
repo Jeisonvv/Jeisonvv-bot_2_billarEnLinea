@@ -1,27 +1,34 @@
 import { setState } from "../../stateManager.js";
-import { registerUserInteraction } from "../../../services/user.service.js";
-import { findOrCreateUser, upDateName } from "../../../services/user.service.js";
+import { registerUserInteraction, findOrCreateUser } from "../../../services/user.service.js";
+import { stateTypingDelay } from "../../../utils/stateTipingDelay.js";
 
-export const transmissionsFlow = async (client, msg) => {
+export const transmissionsFlow = async (client, msg, userData) => {
+  await stateTypingDelay(msg);
   const user = msg.from;
 
-  // 1️⃣ Aseguramos que el usuario exista en DB
-  await findOrCreateUser(user);
-  
-
-  // 2️⃣ Registramos que mostró interés en transmisiones
+  // 2️⃣ Registramos interés
   await registerUserInteraction({
-    phone: user,
+    whatsappId: user,
     interestType: "TRANSMISSION",
     statusUpdate: "INTERESTED"
   });
 
-  // 3️⃣ Guardamos el estado en MongoDB
+  // 🔥 LÓGICA CLAVE:
+  // Si ya tiene nombre → saltamos pedirlo
+  if (userData.name && userData.name.trim().length > 1) {
+    await setState(user, "TRANSMISSION_CITY");
+
+    return client.sendMessage(
+      user,
+      `Perfecto ${userData.name} 🙌\n\n🏢 ¿Cómo se llama el billar?\n\nRecuerda que puedes escribir *"menu" o "cancelar"* en cualquier momento para volver al inicio.`
+    );
+  }
+
+  // Si no tiene nombre → lo pedimos
   await setState(user, "TRANSMISSION_INITIAL");
 
-  // 4️⃣ Enviamos el mensaje
   return client.sendMessage(
     user,
-    "🏆 *Transmisión de torneos*\n\nAntes de continuar, ¿con quién tengo el gusto? \n"
+    "🏆 *Transmisión de torneos*\n\nAntes de continuar, ¿con quién tengo el gusto?"
   );
 };

@@ -13,6 +13,7 @@ const getNow = () => dayjs().tz("America/Bogota").toDate();
 export const findOrCreateUser = async (userId) => {
   // userId es el ID completo de WhatsApp (ej: '123456789@c.us')
   let user = await User.findOne({ whatsappId: userId });
+  // Si no existe, lo creamos con el ID de WhatsApp y la fecha de creación
   if (!user) {
     user = await User.create({
       whatsappId: userId,
@@ -24,11 +25,11 @@ export const findOrCreateUser = async (userId) => {
 
 // 🔹 2️⃣ Registrar interacción (REUTILIZABLE PARA TODO)
 export const registerUserInteraction = async ({
-  phone,
+  whatsappId,
   interestType,
   statusUpdate = null
 }) => {
-  const user = await findOrCreateUser(phone);
+  const user = await findOrCreateUser(whatsappId);
 
   const existingInterest = user.interests.find(
     (i) => i.type === interestType
